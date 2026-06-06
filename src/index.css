@@ -5,3 +5,10 @@ body {
   background-color: #1a1a1a;
   color: #fff;
 }
+*:focus {
+    outline: none;
+}
+
+*:focus-visible {
+    outline: none;
+}
