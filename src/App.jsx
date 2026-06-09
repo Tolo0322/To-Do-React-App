@@ -1,10 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AddTask } from './components/AddTask';
 import { TasksList } from './components/TaskList';
 
 function App() {
 
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(() => {
+    const savedTasks = localStorage.getItem('tasks');
+    if (savedTasks) {
+      return JSON.parse(savedTasks);
+    }
+    return [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]); 
+
+
   const handleAddTasks = (newTaskText) => {
       const newTask = { 
         id: Date.now(), 
@@ -19,7 +31,7 @@ function App() {
   
   const handleEdit = (taskId) => {
     const newText = prompt("Edita tu tarea:");
-    if (newText !== null) {
+    if (newText !== null && newText.trim() !== "") {
       setTasks(prev => prev.map(task => task.id === taskId ? {...task, text: newText} : task));
     }
   };  
