@@ -7,11 +7,13 @@ function App() {
   const [tasks, setTasks] = useLocalStorage('tasks', []);
 
 
-  const handleAddTasks = (newTaskText) => {
+  const handleAddTasks = (newTaskText, dueDate) => {
       const newTask = { 
         id: Date.now(), 
         text: newTaskText, 
-        completed: false };
+        completed: false,
+        dueDate: dueDate,
+      };
       setTasks(prev => [...prev, newTask]);
   };
 

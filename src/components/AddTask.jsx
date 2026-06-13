@@ -2,6 +2,7 @@ import { useState } from "react";
 
 export function AddTask({ onAddTask }) {
   const [task, setTask] = useState("");
+  const [dueDate, setDueDate] = useState("");
 
   const handleInputChange = (e) => {
     setTask(e.target.value);
@@ -10,8 +11,9 @@ export function AddTask({ onAddTask }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (task.trim()) {
-      onAddTask(task);
+      onAddTask(task, dueDate);
       setTask("");
+      setDueDate("");
     }
   };
 
@@ -24,10 +26,16 @@ export function AddTask({ onAddTask }) {
         placeholder="Añadir nueva tarea"
         className="border px-2 py-2 rounded-lg w-full bg-white/5 border-gray-700 text-gray-400  h-12 "
       />
+      <input
+        onChange={(e) => setDueDate(e.target.value)}
+        value={dueDate}
+        type="date"
+        className="border px-2 py-2 rounded-lg w-xs bg-white/5 border-gray-700 text-gray-400  h-12 "
+      />
       <button
         onClick={handleSubmit}
         type="submit"
-        className="text-white px-5 rounded-lg  py-2 border border-white cursor-pointer hover:bg-white/10 h-12 w-32"
+        className="text-white  rounded-lg  py-2 border border-white cursor-pointer hover:bg-white/10 h-12 w-60 flex justify-center items-center"
       >
         + Añadir
       </button>
